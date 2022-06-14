@@ -12,13 +12,17 @@ namespace Pokemon.Controllers
     public class PokemonController : ControllerBase
     {
         
-        
+
         private Pokemonia GetPokemon(int Id)
         {
-            var p = GetPokemons().Where(x => x.Id == Id);
-            return p.FirstOrDefault();
+            var db = new Root();
+            var myPokemon = new Pokemonia(Id);
+            return myPokemon;
         }
-        private List<Pokemonia> GetPokemons()
+
+
+
+        private IEnumerable<Object> GetPokemons()
         {
             var db = new Root();
 
@@ -28,33 +32,15 @@ namespace Pokemon.Controllers
             {
                 var mypokemon = new Pokemonia();
                 var name = p.name;
-                var pokemon_db  = db.GetPokemon(name);
-
+                var id = Util.GetIdfromUrl(p.url);
                 // setting values in to new Middle Layer
-                mypokemon.Id = pokemon_db.Id;
-                mypokemon.Name = pokemon_db.Name;
-                mypokemon.Url = "http://localhost:5186/api/pokemon/get/" + pokemon_db.Id;
-                mypokemon.Weight = pokemon_db.Weight;
-                mypokemon.Height = pokemon_db.Height;
-                mypokemon.base_experience = pokemon_db.Base_Experience;
-                mypokemon.Types = new List<Middle.Type>();
-
-                //adding types
-
-                foreach (var t in pokemon_db.Types)
-                {
-        
-                    var myType = new Pokemon.Middle.Type();
-                    myType.Name = t.type.name;
-                    mypokemon.Types.Add(myType);
-                }
-                
+                mypokemon.Id = id;
+                mypokemon.Name = name;
+                mypokemon.Url = "http://localhost:5186/api/pokemon/get/" + id; //pokemon_db.Id;
 
                 list.Add(mypokemon);
-                
-
             }
-            return list;
+            return list.Select(x=> new {x.Id,x.Name,x.Url}).ToList();
         }
 
        
@@ -88,9 +74,11 @@ namespace Pokemon.Controllers
         [HttpGet]
         public IEnumerable<Object> Index()
         {
+            
+                var list = GetPokemons();
+                return list;          
             //var list = GetPokemons().results;
-            var list = GetPokemons();
-            return list;
+           
         }
 
         

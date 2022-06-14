@@ -1,0 +1,14 @@
+D:\Projects\pokemon\Pokemon\Pokemon\obj\Release\net6.0\win-x64\PubTmp\Out\Pokemon.exe
+D:\Projects\pokemon\Pokemon\Pokemon\obj\Release\net6.0\win-x64\PubTmp\Out\appsettings.Development.json
+D:\Projects\pokemon\Pokemon\Pokemon\obj\Release\net6.0\win-x64\PubTmp\Out\appsettings.json
+D:\Projects\pokemon\Pokemon\Pokemon\obj\Release\net6.0\win-x64\PubTmp\Out\Pokemon.dll
+D:\Projects\pokemon\Pokemon\Pokemon\obj\Release\net6.0\win-x64\PubTmp\Out\Pokemon.deps.json
+D:\Projects\pokemon\Pokemon\Pokemon\obj\Release\net6.0\win-x64\PubTmp\Out\Pokemon.runtimeconfig.json
+D:\Projects\pokemon\Pokemon\Pokemon\obj\Release\net6.0\win-x64\PubTmp\Out\Pokemon.pdb
+D:\Projects\pokemon\Pokemon\Pokemon\obj\Release\net6.0\win-x64\PubTmp\Out\System.Net.Http.Formatting.dll
+D:\Projects\pokemon\Pokemon\Pokemon\obj\Release\net6.0\win-x64\PubTmp\Out\Microsoft.OpenApi.dll
+D:\Projects\pokemon\Pokemon\Pokemon\obj\Release\net6.0\win-x64\PubTmp\Out\Newtonsoft.Json.dll
+D:\Projects\pokemon\Pokemon\Pokemon\obj\Release\net6.0\win-x64\PubTmp\Out\Newtonsoft.Json.Bson.dll
+D:\Projects\pokemon\Pokemon\Pokemon\obj\Release\net6.0\win-x64\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
+D:\Projects\pokemon\Pokemon\Pokemon\obj\Release\net6.0\win-x64\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\Projects\pokemon\Pokemon\Pokemon\obj\Release\net6.0\win-x64\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerUI.dll
