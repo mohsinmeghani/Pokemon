@@ -49,6 +49,7 @@ namespace Pokemon.Middle
                 var myType = new Pokemon.Middle.Type();
                 myType.Name = t.type.name;
                 myType.Id = Util.GetIdfromUrl(t.type.url);
+                myType.Url = t.type.url;
                 new_p.Types.Add(myType);
             }
 

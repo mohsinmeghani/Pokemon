@@ -46,9 +46,27 @@ namespace Pokemon.DB
             }
             return null;
         }
+
+        //Get Pokemons default endpoint
         public Root GetPokemons()
         {
             var result = GetCall("pokemon");
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<Root>();
+                readTask.Wait();
+
+                var pokemons = readTask.Result;
+
+                return pokemons;
+            }
+            return null;
+        }
+
+        //function for pagination
+        public Root GetPokemons(int limit, int offset)
+        {
+            var result = GetCall("pokemon?limit="+limit+"&offset="+offset);
             if (result.IsSuccessStatusCode)
             {
                 var readTask = result.Content.ReadAsAsync<Root>();
