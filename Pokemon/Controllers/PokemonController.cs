@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Pokemon.DB;
 using System.Net.Http;
- 
+using Pokemon.Middle;
+
 
 namespace Pokemon.Controllers
 {
@@ -9,52 +11,53 @@ namespace Pokemon.Controllers
     [ApiController]
     public class PokemonController : ControllerBase
     {
-        //setting Base URL for API
-        const string baseurl = @"https://pokeapi.co/api/v2/";
-
-
-        //Generic Function for API Calling and Returning Response Message
-        private HttpResponseMessage GetCall(string callname)
+        
+        
+        private Pokemonia GetPokemon(int Id)
         {
-            var client = new HttpClient();
-            client.BaseAddress = new System.Uri(baseurl);
-            var responseTask = client.GetAsync(callname);
-            responseTask.Wait();
-            var result = responseTask.Result;
-            return result;
+            var p = GetPokemons().Where(x => x.Id == Id);
+            return p.FirstOrDefault();
         }
-
-        //
-        //Getting All the Pokemons with the call
-        private Root GetPokemons()
-        {   
-            var result = GetCall("pokemon");
-            if (result.IsSuccessStatusCode)
-            {
-               var readTask = result.Content.ReadAsAsync<Root>();
-               readTask.Wait();
-
-                var pokemons = readTask.Result;
-                return pokemons;
-            }
-            return null;
-        }
-
-
-        //Getting Pokemon by ID
-        private Pokemon GetPokemon(int Id)
+        private List<Pokemonia> GetPokemons()
         {
-            var result = GetCall("pokemon/" + Id);
-            if (result.IsSuccessStatusCode)
-            {
-                var readTask = result.Content.ReadAsAsync<Pokemon>();
-                readTask.Wait();
+            var db = new Root();
 
-                var pokemons = readTask.Result;
-                return pokemons;
+            var pokemons = db.GetPokemons();
+            var list = new List<Pokemonia>();            
+            foreach (var p in pokemons.results)
+            {
+                var mypokemon = new Pokemonia();
+                var name = p.name;
+                var pokemon_db  = db.GetPokemon(name);
+
+                // setting values in to new Middle Layer
+                mypokemon.Id = pokemon_db.Id;
+                mypokemon.Name = pokemon_db.Name;
+                mypokemon.Url = "http://localhost:5186/api/pokemon/get/" + pokemon_db.Id;
+                mypokemon.Weight = pokemon_db.Weight;
+                mypokemon.Height = pokemon_db.Height;
+                mypokemon.base_experience = pokemon_db.Base_Experience;
+                mypokemon.Types = new List<Middle.Type>();
+
+                //adding types
+
+                foreach (var t in pokemon_db.Types)
+                {
+        
+                    var myType = new Pokemon.Middle.Type();
+                    myType.Name = t.type.name;
+                    mypokemon.Types.Add(myType);
+                }
+                
+
+                list.Add(mypokemon);
+                
+
             }
-            return null;
+            return list;
         }
+
+       
 
         [HttpGet]
         [Route("Get/{id}")]
@@ -65,9 +68,28 @@ namespace Pokemon.Controllers
         }
 
         [HttpGet]
+        [Route("Getdb")]
+        public IEnumerable<Object> GetDbData()
+        {
+            var db = new Root();
+            var list =db.GetPokemons();
+            return list.results;
+        }
+
+        [HttpGet]
+        [Route("Getdb/{id}")]
+        public IActionResult GetDbP(int id)
+        {
+            var db = new Root();
+            var data = db.GetPokemon(id);
+            return Ok(data);
+        }
+
+        [HttpGet]
         public IEnumerable<Object> Index()
         {
-            var list = GetPokemons().results;
+            //var list = GetPokemons().results;
+            var list = GetPokemons();
             return list;
         }
 
