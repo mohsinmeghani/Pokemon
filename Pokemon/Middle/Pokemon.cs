@@ -12,6 +12,8 @@ namespace Pokemon.Middle
         public int base_experience { get; set; }
         public  List<Type> Types { get; set; }
 
+        public string ImageUrl { get; set; }
+
         public Pokemonia()
         {
 
@@ -28,6 +30,7 @@ namespace Pokemon.Middle
             this.Url = p.Url;
             this.base_experience = p.base_experience;
             this.Types = p.Types;
+            this.ImageUrl = p.ImageUrl;
         }
 
         public Pokemonia Get(int id)
@@ -42,6 +45,7 @@ namespace Pokemon.Middle
             new_p.Height = p.Height;
             new_p.base_experience = p.Base_Experience;
             new_p.Types = new List<Middle.Type>();
+            new_p.ImageUrl = p.Sprites.other.home.front_default;
 
             foreach (var t in p.Types)
             {

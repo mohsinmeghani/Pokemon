@@ -10,6 +10,8 @@
         public string url { get; set; }
         public List<Type> Types { get; set; }
 
+        public Sprites Sprites { get; set; }
+
 
     }
 }

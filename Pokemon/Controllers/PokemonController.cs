@@ -30,17 +30,21 @@ namespace Pokemon.Controllers
             var list = new List<Pokemonia>();            
             foreach (var p in pokemons.results)
             {
-                var mypokemon = new Pokemonia();
+               
                 var name = p.name;
                 var id = Util.GetIdfromUrl(p.url);
+
+                var mypokemon = new Pokemonia(id);
+
                 // setting values in to new Middle Layer
-                mypokemon.Id = id;
-                mypokemon.Name = name;
-                mypokemon.Url = "http://localhost:5186/api/pokemon/get/" + id; //pokemon_db.Id;
+               // mypokemon.Id = id;
+               // mypokemon.Name = name;
+               // mypokemon.Url = "http://localhost:5186/api/pokemon/get/" + id; //pokemon_db.Id;
+               
 
                 list.Add(mypokemon);
             }
-            return list.Select(x=> new {x.Id,x.Name,x.Url}).ToList();
+            return list.Select(x=> new {x.Id,x.Name,x.Url,x.ImageUrl}).ToList();
         }
 
        
