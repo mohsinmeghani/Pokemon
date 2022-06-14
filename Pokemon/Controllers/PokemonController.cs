@@ -9,8 +9,11 @@ namespace Pokemon.Controllers
     [ApiController]
     public class PokemonController : ControllerBase
     {
+        //setting Base URL for API
         const string baseurl = @"https://pokeapi.co/api/v2/";
 
+
+        //Generic Function for API Calling and Returning Response Message
         private HttpResponseMessage GetCall(string callname)
         {
             var client = new HttpClient();
@@ -21,7 +24,8 @@ namespace Pokemon.Controllers
             return result;
         }
 
-
+        //
+        //Getting All the Pokemons with the call
         private Root GetPokemons()
         {   
             var result = GetCall("pokemon");
@@ -37,6 +41,7 @@ namespace Pokemon.Controllers
         }
 
 
+        //Getting Pokemon by ID
         private Pokemon GetPokemon(int Id)
         {
             var result = GetCall("pokemon/" + Id);
